@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<htmL lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>sign-in</title>
+    <link rel="stylesheet" type="text/css" href="./css/reset.css">
+    <link rel="stylesheet" type="text/css" href="./css/index.css">
+    <script src="https://apps.bdimg.com/libs/jquery/2.1.4/jquery.min.js">
+    </script>
+
+</head>
+
+<body>
+    <form class="sign-in">
+        <input type="text" autocomplete="off" placeholder="用户名" name="userName" id="userName">
+        <input type="password" placeholder="密码" name="passWord" id="passWord">
+        <input type="button" id="signUpButton" value="登录">
+    </form>
+    <SCRIPT>
+        $(function () {
+
+
+/*
+
+            // 发送请求
+            $('#signUpButton').click(function () {
+
+
+                var u = $("#userName").val();
+                var p = $("#passWord").val();
+
+                if (u == "") {
+                    alert("请输入用户名");
+                    return false;
+                } else if (p == "") {
+                    alert("请输入密码");
+                    return false;
+                }
+
+                var logindata = {
+                    name: u,
+                    pwd: p
+                };
+
+
+                $.ajax({
+                    type: "post",
+                    url: "/carrots-admin-ajax/a/login",
+                    data: logindata,
+                    async: true,
+                    dataType: 'json',
+                    success: function (msg) {
+                        //alert(msg);
+                        if (msg.message == "success") {
+                            window.location.href = "http://dev.admin.carrots.ptteng.com/#/dashboard";
+                        } else {
+                            alert("登录失败，请重试!");
+                            console.log(msg);
+                        }
+                    }
+                });
+
+                
+            })
+
+
+*/
+            
+            $('#signUpButton').click(function () {
+            var u = $("#userName").val();
+            var p = $("#passWord").val();
+            if (u == "") {
+            alert("用户名不能为空");
+            } else {
+            if (p == "") {
+            alert("密码不能为空");
+            } else {
+            var x = new XMLHttpRequest();
+            x.onreadystatechange = function () {
+            if (x.readyState == 4 && x.status == 200) {
+            var response = JSON.parse(x.responseText);
+            console.log(response);
+            if (response.message == "用户不存在" || response.message == "密码错误") {
+            alert("密码错误")
+            } else {
+            if (response.message == "success") {
+            window.location.href ="http://dev.admin.carrots.ptteng.com/#/dashboard";
+            }
+            }
+
+            }
+            }
+            x.open("POST", "/carrots-admin-ajax/a/login", true);
+            x.setRequestHeader("Content-type", "application/x-www-form-urlencoded");
+            x.send("name=" + u + "&pwd=" + p);
+            }
+            }
+
+            });
+
+            
+
+
+
+
+
+
+
+        });
+    </SCRIPT>
+</body>
+
+</htmL>
